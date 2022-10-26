@@ -12,7 +12,7 @@
 
 <style scoped>
   #footer{
-    height: 200px;
+    height: 150px;
     background-color: #222;
     border-top:4px solid #111;
     color: #fcba03;
@@ -20,5 +20,6 @@
     align-items: center;
     width: 100%;
     justify-content: center;
+    margin-top: 60vh;
   }
 </style>
