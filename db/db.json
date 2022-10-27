@@ -77,5 +77,79 @@
       "tipo": "Finalizado"
     }
   ],
-  "burgers":[]
+  "burgers": [
+    {
+      "nome": "João Coelho",
+      "carne": "Maminha",
+      "pao": "3 Queijos",
+      "opcionais": [
+        "Salame",
+        "Cebola roxa"
+      ],
+      "status": "Solicitado",
+      "id": 4
+    },
+    {
+      "nome": "res",
+      "carne": null,
+      "pao": null,
+      "opcionais": [],
+      "status": "Solicitado",
+      "id": 7
+    },
+    {
+      "nome": "teste",
+      "carne": "Picanha",
+      "pao": "Parmesão e Orégano",
+      "opcionais": [],
+      "status": "Solicitado",
+      "id": 8
+    },
+    {
+      "nome": "Teste1",
+      "carne": "Maminha",
+      "pao": "Italiano Branco",
+      "opcionais": [
+        "Pepino",
+        "Cheddar",
+        "Bacon"
+      ],
+      "status": "Solicitado",
+      "id": 9
+    },
+    {
+      "nome": "Joao",
+      "carne": "Maminha",
+      "pao": "Integral",
+      "opcionais": [
+        "Tomate"
+      ],
+      "status": "Solicitado",
+      "id": 10
+    },
+    {
+      "nome": "Pedro Piedade",
+      "carne": "Picanha",
+      "pao": "3 Queijos",
+      "opcionais": [
+        "Bacon",
+        "Tomate",
+        "Cheddar"
+      ],
+      "status": "Solicitado",
+      "id": 11
+    },
+    {
+      "nome": "Marcos Piedade",
+      "carne": "Maminha",
+      "pao": "Italiano Branco",
+      "opcionais": [
+        "Bacon",
+        "Salame",
+        "Cheddar"
+      ],
+      "status": "Solicitado",
+      "id": 12
+    }
+  ]
 }
