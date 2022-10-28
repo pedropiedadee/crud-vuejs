@@ -1,5 +1,6 @@
 <template>
   <div id="burguer-table">
+    <Message :msg="msg" v-show="msg"/>
     <div>
       <div id="burguer-table-heading">
         <div class="order-id">#:</div>
@@ -11,26 +12,26 @@
       </div>
     </div>
     <div id="burguer-table-rows">
-      <div class="burguer-table-row" v-for="burguer in burguers" :key="burguer.id">
-        <div class="order-number">{{ burguer.id }}</div>
-        <div>{{ burguer.nome }}</div>
-        <div>{{ burguer.pao }}</div>
-        <div>{{ burguer.carne }}</div>
+      <div class="burguer-table-row" v-for="burger in burgers" :key="burger.id">
+        <div class="order-number">{{ burger.id }}</div>
+        <div>{{ burger.nome }}</div>
+        <div>{{ burger.pao }}</div>
+        <div>{{ burger.carne }}</div>
         <div>
           <ul>
-            <li v-for="(opcional, index) in burguer.opcionais" :key="index">
+            <li v-for="(opcional, index) in burger.opcionais" :key="index">
             {{ opcional }}
           </li>
           </ul>
         </div>
         <div>
-          <select name="status" class="status">
+          <select name="status" class="status" @change="updateBurger($event, burger.id)">
             <option value="">Selecione</option>
-            <option v-for="s in status" :key="s.id" value="s.tipo" :selected="burguer.status == s.tipo">
+            <option v-for="s in status" :key="s.id" :value="s.tipo" :selected="burger.status == s.tipo">
               {{ s.tipo }}
             </option>
           </select>
-          <button class="delete-btn">Cancelar</button>
+          <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
         </div>
       </div>
     </div>
@@ -38,15 +39,21 @@
 </template>
 
 <script>
+import Message from "./Message.vue";
+
   export default {
     name: "Dashboard",
     data() {
       return {
-        burguers: null,
-        burguer_id: null,
-        status: []
+        burgers: null,
+        burger_id: null,
+        status: [],
+        msg: null
       }
-    },
+    },components: {
+      Message
+    }
+    ,
     methods: {
       async getPedidos() {
 
@@ -54,9 +61,8 @@
 
         const data = await req.json();
 
-        this.burguers = data;
+        this.burgers = data;
 
-        console.log(this.burguers)
 
         // Resgatar os status
         this.getStatus();
@@ -68,6 +74,47 @@
         const data = await req.json();
 
         this.status = data;
+      },
+      async deleteBurger(id) {
+        const req = await fetch(`http://localhost:3000/burgers/${id}`, {
+          method: "DELETE"
+        });
+      
+        const res = await req.json();
+
+        //Colocando a mensagem no msg vindo de data
+        this.msg = `Pedido Removido com sucesso!`
+
+
+        // Tirar a mensagem
+        setTimeout(() => this.msg = "", 3000)
+        
+        this.getPedidos();
+      
+      },
+      async updateBurger(event, id) {
+        const option = event.target.value;
+
+        const dataJson = JSON.stringify({ status: option });
+
+        const req = await fetch(`http://localhost:3000/burgers/${id}`,{
+          method: "PATCH",
+          headers: { "Content-Type": "application/json"},
+          body: dataJson
+        });
+
+        const res = await req.json();
+
+         //Colocando a mensagem no msg vindo de data
+         this.msg = `O Pedido N°${id} foi atualizado para "${res.status}"!`
+
+
+        // Tirar a mensagem
+        setTimeout(() => this.msg = "", 3000)
+
+        console.log(res)
+
+        
       }
     },
     mounted() {
